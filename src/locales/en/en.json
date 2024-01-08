@@ -1,0 +1,27 @@
+{
+    "translation": {
+        "sidenav": {
+            "websites": "Websites",
+            "pages": "Pages",
+            "themes": "Themes"
+        },
+        "authentication": {
+            "register": "Register",
+            "agree": "I agree the",
+            "terms_conditions": "Terms and Conditions",
+            "sign_up": "Sign up",
+            "sign_in": "Sign in",
+            "already_account": "Already have an account?",
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "welcome": "Welcome!",
+            "welcome_text": "Use these awesome forms to create new account or log in if you already have one!",
+            "welcome_back": "Welcome back!",
+            "remember_me": "Remember me",
+            "not_account": "Don't have an account?",
+            "enter_credentials": "Enter your username and password to sign in",
+            "log_out": "Log out"
+        }
+    }
+}

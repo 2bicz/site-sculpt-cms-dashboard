@@ -1,0 +1,27 @@
+{
+    "translation": {
+        "sidenav": {
+            "websites": "Strony",
+            "pages": "Podstrony",
+            "themes": "Motywy"
+        },
+        "authentication": {
+            "register": "Rejestracja",
+            "agree": "Zgadzam się na",
+            "terms_conditions": "Warunki użytkowania",
+            "sign_up": "rejestracja",
+            "sign_in": "Zaloguj się",
+            "already_account": "Już posiadasz konto?",
+            "username": "Nazwa użytkownika",
+            "email": "Email",
+            "password": "Hasło",
+            "welcome": "Witaj!",
+            "welcome_text": "Wykorzystaj formularz poniżej do utworzenia nowego konta lub do zalogowania się jeśli takie już posiadasz!",
+            "welcome_back": "Witaj ponownie!",
+            "remember_me": "Zapamiętaj mnie",
+            "not_account": "Nie masz konta?",
+            "enter_credentials": "Podaj swoją nazwę użytkownika oraz hasło aby się zalogować",
+            "log_out": "Wyloguj się"
+        }
+    }
+}
