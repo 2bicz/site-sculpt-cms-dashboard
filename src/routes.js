@@ -35,19 +35,12 @@ Coded by www.creative-tim.com
   10. The `component` key is used to store the component of its route.
 */
 
-// Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
-// Soft UI Dashboard React icons
-import Shop from "examples/Icons/Shop";
-import Office from "examples/Icons/Office";
 import Document from "examples/Icons/Document";
 import SpaceShip from "examples/Icons/SpaceShip";
-import CustomerSupport from "examples/Icons/CustomerSupport";
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import WebIcon from '@mui/icons-material/Web';
@@ -56,6 +49,13 @@ import ColorLensIcon from '@mui/icons-material/ColorLens';
 import BookIcon from '@mui/icons-material/Book';
 import CommentIcon from '@mui/icons-material/Comment';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import Websites from "layouts/websites/Websites";
+import { Pages } from "layouts/pages/Pages";
+import Configurator from "examples/Configurator";
+import CategoryIcon from '@mui/icons-material/Category';
+import { Categories } from "layouts/categories/Categories";
+import { Themes } from "layouts/themes/Themes";
+import { Posts } from "layouts/posts/Posts";
 
 const routes = [
   {
@@ -75,16 +75,25 @@ const routes = [
     key: "websites",
     route: "/dashboard/websites",
     icon: <WebIcon size="12px" />,
-    component: <Tables />,
+    component: <Websites />,
     noCollapse: true
   },
   {
-    type: "collapse",
+    // type: "collapse",
     name: "Pages",
-    key: "pages",
-    route: "/dashboard/pages",
+    key: ":websiteId",
+    route: "/dashboard/websites/:websiteId",
     icon: <WebAssetIcon size="12px" />,
-    component: <Tables />,
+    component: <Pages />,
+    noCollapse: true
+  },
+  {
+    // type: "collapse",
+    name: "Page layout editor",
+    key: ":pageId",
+    route: "/page-editor/:pageId",
+    icon: <WebAssetIcon size="12px" />,
+    component: <Pages />,
     noCollapse: true
   },
   {
@@ -93,36 +102,58 @@ const routes = [
     key: "themes",
     route: "/dashboard/themes",
     icon: <ColorLensIcon size="12px" />,
-    component: <Tables />,
+    component: <Themes />,
     noCollapse: true
   },
   
   { type: "title", title: "Blog", key: "tables" },
   {
     type: "collapse",
-    name: "Posts",
-    key: "posts",
-    route: "/dashboard/posts",
-    icon: <BookIcon size="12px" />,
-    component: <Tables />,
+    name: "Categories",
+    key: "categories",
+    route: "/dashboard/categories",
+    icon: <CategoryIcon size="12px" />,
+    component: <Categories />,
     noCollapse: true
   },
+
+
+  // {
+  //   // type: "collapse",
+  //   name: "Pages",
+  //   key: ":websiteId",
+  //   route: "/dashboard/websites/:websiteId",
+  //   icon: <WebAssetIcon size="12px" />,
+  //   component: <Pages />,
+  //   noCollapse: true
+  // },
+
   {
     type: "collapse",
+    name: "Posts",
+    key: "posts",
+    route: "/dashboard/posts/:websiteId",
+    icon: <BookIcon size="12px" />,
+    component: <Posts />,
+    noCollapse: true
+  },
+ 
+  {
+    // type: "collapse",
     name: "Comments",
     key: "comments",
     route: "/dashboard/comments",
     icon: <CommentIcon size="12px" />,
-    component: <Tables />,
+    // component: <Tables />,
     noCollapse: true
   },
   {
-    type: "collapse",
+    // type: "collapse",
     name: "Reactions",
     key: "reactions",
     route: "/dashboard/reactions",
     icon: <EmojiEmotionsIcon size="12px" />,
-    component: <Tables />,
+    // component: <Tables />,
     noCollapse: true
   },
   {
