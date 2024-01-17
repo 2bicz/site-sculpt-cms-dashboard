@@ -1,4 +1,4 @@
-import { Card, Grid, MenuItem, Select } from "@mui/material";
+import { Card, Grid, InputAdornment, MenuItem, Select } from "@mui/material";
 import PropTypes from "prop-types";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
@@ -6,6 +6,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import SoftButton from "components/SoftButton";
 import SoftInput from "components/SoftInput";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export const EntityDataForm = ({ formTitle, formType, dataFields, onFormSubmit, onFormCancel }) => {
     const handleSubmit = (event) => {
@@ -47,6 +50,11 @@ export const EntityDataForm = ({ formTitle, formType, dataFields, onFormSubmit, 
                                         value={field.initialValue}
                                         onChange={(event) => field.onChange(event)}
                                         displayEmpty
+                                        startAdornment={
+                                            <InputAdornment position="start">
+                                              <ArrowDropDownIcon />
+                                            </InputAdornment>
+                                          }
                                     >
                                         {field.options.map((option, optionIndex) => (
                                             <MenuItem key={`option-${index}-${optionIndex}`} value={option.value}>
@@ -70,7 +78,6 @@ export const EntityDataForm = ({ formTitle, formType, dataFields, onFormSubmit, 
             </Card>
         </SoftBox>
     );
-
 }
 
 EntityDataForm.propTypes = {

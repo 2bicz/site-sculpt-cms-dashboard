@@ -56,6 +56,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import { Categories } from "layouts/categories/Categories";
 import { Themes } from "layouts/themes/Themes";
 import { Posts } from "layouts/posts/Posts";
+import { Sections } from "layouts/sections/Sections";
+import { Components } from "layouts/components/Components";
 
 const routes = [
   {
@@ -69,31 +71,40 @@ const routes = [
   },
   
   { type: "title", title: "Kreator", key: "tables" },
+  // {
+  //   type: "collapse",
+  //   name: "Websites",
+  //   key: "websites",
+  //   route: "/dashboard/websites",
+  //   icon: <WebIcon size="12px" />,
+  //   component: <Websites />,
+  //   noCollapse: true
+  // },
   {
     type: "collapse",
-    name: "Websites",
-    key: "websites",
-    route: "/dashboard/websites",
-    icon: <WebIcon size="12px" />,
-    component: <Websites />,
-    noCollapse: true
-  },
-  {
-    // type: "collapse",
     name: "Pages",
-    key: ":websiteId",
-    route: "/dashboard/websites/:websiteId",
+    key: "pages",
+    route: "/dashboard/pages",
     icon: <WebAssetIcon size="12px" />,
     component: <Pages />,
     noCollapse: true
   },
   {
     // type: "collapse",
-    name: "Page layout editor",
+    name: "Page sections",
     key: ":pageId",
-    route: "/page-editor/:pageId",
+    route:  "/dashboard/pages/page-sections/:pageId",
     icon: <WebAssetIcon size="12px" />,
-    component: <Pages />,
+    component: <Sections />,
+    noCollapse: true
+  },
+  {
+    // type: "collapse",
+    name: "Section components",
+    key: ":sectionId",
+    route:  "/dashboard/pages/page-sections/components/:sectionId",
+    icon: <WebAssetIcon size="12px" />,
+    component: <Components />,
     noCollapse: true
   },
   {

@@ -8,7 +8,7 @@ export const EntityTable = ({ title, columns, tableRows }) => {
         <SoftBox mb={3}>
               <Card>
                 <SoftBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                  <SoftTypography variant="h6">Podstrony</SoftTypography>
+                  <SoftTypography variant="h6">{ title }</SoftTypography>
                 </SoftBox>
                 <SoftBox
                   sx={{

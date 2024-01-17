@@ -38,7 +38,7 @@ function SignUp() {
   const [password, setPassword] = useState()
 
   const handleRegister = () => {
-    axios.post(env.baseUrl + "auth/signup", {
+    axios.post(env.baseUrl + "/auth/signup", {
       username: username,
       email: email,
       password: password
