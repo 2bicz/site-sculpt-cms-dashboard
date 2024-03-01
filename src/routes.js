@@ -58,17 +58,19 @@ import { Themes } from "layouts/themes/Themes";
 import { Posts } from "layouts/posts/Posts";
 import { Sections } from "layouts/sections/Sections";
 import { Components } from "layouts/components/Components";
+import { PageRenderer } from "layouts/page-renderer/PageRenderer";
+import LanguageIcon from '@mui/icons-material/Language';
 
 const routes = [
-  {
-    type: "collapse",
-    name: "Dashboard",
-    key: "dashboard",
-    route: "/dashboard",
-    icon: <DashboardIcon size="12px" />,
-    component: <Dashboard />,
-    noCollapse: true
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Dashboard",
+  //   key: "dashboard",
+  //   route: "/dashboard",
+  //   icon: <DashboardIcon size="12px" />,
+  //   component: <Dashboard />,
+  //   noCollapse: true
+  // },
   
   { type: "title", title: "Kreator", key: "tables" },
   // {
@@ -80,6 +82,15 @@ const routes = [
   //   component: <Websites />,
   //   noCollapse: true
   // },
+  {
+    type: "collapse",
+    name: "Website theme",
+    key: "website",
+    route: "/dashboard/website",
+    icon: <LanguageIcon size="12px" />,
+    component: <Themes />,
+    noCollapse: true
+  },
   {
     type: "collapse",
     name: "Pages",
@@ -107,26 +118,18 @@ const routes = [
     component: <Components />,
     noCollapse: true
   },
-  {
-    type: "collapse",
-    name: "Themes",
-    key: "themes",
-    route: "/dashboard/themes",
-    icon: <ColorLensIcon size="12px" />,
-    component: <Themes />,
-    noCollapse: true
-  },
   
-  { type: "title", title: "Blog", key: "tables" },
-  {
-    type: "collapse",
-    name: "Categories",
-    key: "categories",
-    route: "/dashboard/categories",
-    icon: <CategoryIcon size="12px" />,
-    component: <Categories />,
-    noCollapse: true
-  },
+  // { type: "title", title: "Blog", key: "tables" },
+  // {
+  //   type: "collapse",
+  //   name: "Categories",
+  //   key: "categories",
+  //   route: "/dashboard/categories",
+  //   icon: <CategoryIcon size="12px" />,
+  //   // component: <Categories />,
+  //   component: <PageRenderer />,
+  //   noCollapse: true
+  // },
 
 
   // {
@@ -139,34 +142,34 @@ const routes = [
   //   noCollapse: true
   // },
 
-  {
-    type: "collapse",
-    name: "Posts",
-    key: "posts",
-    route: "/dashboard/posts/:websiteId",
-    icon: <BookIcon size="12px" />,
-    component: <Posts />,
-    noCollapse: true
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Posts",
+  //   key: "posts",
+  //   route: "/dashboard/posts/:websiteId",
+  //   icon: <BookIcon size="12px" />,
+  //   component: <Posts />,
+  //   noCollapse: true
+  // },
  
-  {
-    // type: "collapse",
-    name: "Comments",
-    key: "comments",
-    route: "/dashboard/comments",
-    icon: <CommentIcon size="12px" />,
-    // component: <Tables />,
-    noCollapse: true
-  },
-  {
-    // type: "collapse",
-    name: "Reactions",
-    key: "reactions",
-    route: "/dashboard/reactions",
-    icon: <EmojiEmotionsIcon size="12px" />,
-    // component: <Tables />,
-    noCollapse: true
-  },
+  // {
+  //   // type: "collapse",
+  //   name: "Comments",
+  //   key: "comments",
+  //   route: "/dashboard/comments",
+  //   icon: <CommentIcon size="12px" />,
+  //   // component: <Tables />,
+  //   noCollapse: true
+  // },
+  // {
+  //   // type: "collapse",
+  //   name: "Reactions",
+  //   key: "reactions",
+  //   route: "/dashboard/reactions",
+  //   icon: <EmojiEmotionsIcon size="12px" />,
+  //   // component: <Tables />,
+  //   noCollapse: true
+  // },
   {
     name: "Sign In",
     key: "sign-in",
@@ -177,9 +180,9 @@ const routes = [
     public: true
   },
   {
-    name: "Sign Up",
-    key: "sign-up",
-    route: "/dashboard/authentication/sign-up",
+    name: "Reset password",
+    key: "password-reser",
+    route: "/dashboard/authentication/reset-password",
     icon: <SpaceShip size="12px" />,
     component: <SignUp />,
     noCollapse: true,

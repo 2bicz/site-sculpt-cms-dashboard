@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ function SignIn() {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  // const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   const handleSignIn = () => {
     api.post("/auth/signin", {
@@ -56,7 +56,9 @@ function SignIn() {
         if (token) {
           Cookies.set('jwtToken', token, { expires: 1, secure: true, sameSite: 'Strict' });
           Cookies.set('username', username, { expires: 1, secure: true, sameSite: 'Strict' });
-          navigate("/dashboard");
+          if (Cookies.get("jwtToken")) {
+            navigate("/dashboard");
+          }
         }
       }
     })
@@ -88,7 +90,7 @@ function SignIn() {
           </SoftBox>
           <SoftInput type="password" placeholder={t('authentication.password')} onChange={(content) => setPassword(content.target.value)} />
         </SoftBox>
-        <SoftBox display="flex" alignItems="center">
+        {/* <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
           <SoftTypography
             variant="button"
@@ -98,13 +100,13 @@ function SignIn() {
           >
             &nbsp;&nbsp;{t('authentication.remember_me')}
           </SoftTypography>
-        </SoftBox>
+        </SoftBox> */}
         <SoftBox mt={4} mb={1}>
           <SoftButton variant="gradient" color="info" fullWidth onClick={() => handleSignIn()}>
             {t('authentication.sign_in')}
           </SoftButton>
         </SoftBox>
-        <SoftBox mt={3} textAlign="center">
+        {/* <SoftBox mt={3} textAlign="center">
           <SoftTypography variant="button" color="text" fontWeight="regular">
           {t('authentication.not_account')}{" "}
             <SoftTypography
@@ -118,7 +120,7 @@ function SignIn() {
               {t('authentication.register')}
             </SoftTypography>
           </SoftTypography>
-        </SoftBox>
+        </SoftBox> */}
       </SoftBox>
     </CoverLayout>
   );

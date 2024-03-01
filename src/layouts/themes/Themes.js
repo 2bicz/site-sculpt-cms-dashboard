@@ -20,7 +20,11 @@ export const Themes = () => {
     const [editEntityId, setEditEntityId] = useState();
     const [tableDataChanged, setTableDataChanged] = useState(false);
 
-    const [fontFamily, setFontFamily] = useState();
+    // const [fontFamily, setFontFamily] = useState();
+    const [isCurrent, setIsCurrent] = useState(false);
+    const [websiteTitle, setWebsiteTitle] = useState();
+    const [faviconPath, setFaviconPath] = useState();
+    const [logoPath, setLogoPath] = useState();
     const [fontColor, setFontColor] = useState();
     const [primaryColor, setPrimaryColor] = useState();
     const [secondaryColor, setSecondaryColor] = useState();
@@ -28,7 +32,11 @@ export const Themes = () => {
     const [backgroundColor, setBackgroundColor] = useState();
 
     const columns = [
-        { name: "font family", align: "center" },
+        // { name: "font family", align: "center" },
+        { name: "current", align: "center" },
+        { name: "website title", align: "center" },
+        { name: "favicon path", align: "center" },
+        { name: "logo path", align: "center" },
         { name: "font color", align: "center" },
         { name: "primary color", align: "center" },
         { name: "secondary color", align: "center" },
@@ -42,9 +50,13 @@ export const Themes = () => {
         return data.map(row => prepareTableRow(row));
       }
       
-      const prepareTableRow = ({ themeId, fontFamily, fontColor, primaryColor, secondaryColor, tertiaryColor, backgroundColor }) => {
+      const prepareTableRow = ({ themeId, isCurrent, websiteTitle, faviconPath, logoPath, fontColor, primaryColor, secondaryColor, tertiaryColor, backgroundColor }) => {
         return {
-          "font family": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ fontFamily }</SoftTypography>),
+          // "font family": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ fontFamily }</SoftTypography>),
+          "current": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ isCurrent ? "Tak" : "Nie" }</SoftTypography>),
+          "website title": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ websiteTitle }</SoftTypography>),
+          "favicon path": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ faviconPath }</SoftTypography>),
+          "logo path": (<SoftTypography variant="caption" color="secondary" fontWeight="medium">{ logoPath }</SoftTypography>),
           "font color": (<ColorDisplay height={ 30 } width={ 30 } hexCode={ fontColor } />),
           "primary color": (<ColorDisplay height={ 30 } width={ 30 } hexCode={ primaryColor } />),
           "secondary color": (<ColorDisplay height={ 30 } width={ 30 } hexCode={ secondaryColor } />),
@@ -55,12 +67,16 @@ export const Themes = () => {
                 onClick={() => {
                   setEditEntityEnabled(true);
                   setEditEntityId(themeId);
-                  setFontFamily(fontFamily);
+                  // setFontFamily(fontFamily);
                   setFontColor(fontColor);
                   setPrimaryColor(primaryColor);
                   setSecondaryColor(secondaryColor);
                   setTertiaryColor(tertiaryColor);
                   setBackgroundColor(backgroundColor);
+                  setIsCurrent(isCurrent);
+                  setWebsiteTitle(websiteTitle);
+                  setFaviconPath(faviconPath);
+                  setLogoPath(logoPath);
                 }}
               >
                 <EditIcon />
@@ -95,11 +111,15 @@ export const Themes = () => {
     }, [entityData]);
 
     const addTheme = () => {
-        if (fontFamily && primaryColor && secondaryColor && backgroundColor) {
+        if (websiteTitle && fontColor && primaryColor && secondaryColor && backgroundColor) {
           api.post(
             `/theme`,
             {
-              fontFamily: fontFamily,
+              // fontFamily: fontFamily,
+              websiteTitle: websiteTitle,
+              isCurrent: isCurrent,
+              faviconPath: faviconPath,
+              logoPath: logoPath,
               fontColor: fontColor,
               primaryColor: primaryColor,
               secondaryColor: secondaryColor,
@@ -122,7 +142,11 @@ export const Themes = () => {
           api.post(
             `/theme/update/${editEntityId}`,
             {
-              fontFamily: fontFamily,
+              // fontFamily: fontFamily,
+              websiteTitle: websiteTitle,
+              isCurrent: isCurrent,
+              faviconPath: faviconPath,
+              logoPath: logoPath,
               fontColor: fontColor,
               primaryColor: primaryColor,
               secondaryColor: secondaryColor,
@@ -141,6 +165,7 @@ export const Themes = () => {
       }
   
       const deleteTheme = (deleteEntityId) => {
+        console.log(deleteEntityId)
         if (deleteEntityId) {
           api.delete(
             `/theme/delete/${deleteEntityId}`
@@ -160,7 +185,7 @@ export const Themes = () => {
           <DashboardNavbar />
           <SoftBox py={3}>
             <EntityTable 
-              title="Motywy" 
+              title="Motywy strony internetowej" 
               columns={columns} 
               tableRows={tableRows} 
             />
@@ -169,12 +194,44 @@ export const Themes = () => {
               formTitle={editEntityEnabled ? "Edytuj motyw" : "Dodaj motyw"}
               formType={editEntityEnabled ? "EDIT" : "ADD"}
               dataFields={[
+                // {
+                //   fieldName: "Czcionka",
+                //   type: "text",
+                //   placeholder: "Czcionka",
+                //   initialValue: fontFamily,
+                //   onChange: (content) => setFontFamily(content.target.value),
+                // },
                 {
-                  fieldName: "Czcionka",
+                  fieldName: "Aktualnie używany",
+                  type: "dropdown",
+                  placeholder: "Aktualnie używany",
+                  initialValue: isCurrent,
+                  onChange: (content) => setIsCurrent(content.target.value),
+                  options: [
+                    { value: true, label: "Tak" },
+                    { value: false, label: "Nie" },
+                  ],
+                },
+                {
+                  fieldName: "Tytuł strony",
                   type: "text",
-                  placeholder: "Czcionka",
-                  initialValue: fontFamily,
-                  onChange: (content) => setFontFamily(content.target.value),
+                  placeholder: "Tytuł strony",
+                  initialValue: websiteTitle,
+                  onChange: (content) => setWebsiteTitle(content.target.value),
+                },
+                {
+                  fieldName: "Źródło faviconu",
+                  type: "text",
+                  placeholder: "Źródło faviconu",
+                  initialValue: faviconPath,
+                  onChange: (content) => setFaviconPath(content.target.value),
+                },
+                {
+                  fieldName: "Źródło loga",
+                  type: "text",
+                  placeholder: "Źródło loga",
+                  initialValue: logoPath,
+                  onChange: (content) => setLogoPath(content.target.value),
                 },
                 {
                   fieldName: "Kolor czcionki",

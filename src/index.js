@@ -21,12 +21,15 @@ import './i18n.js';
 
 // Soft UI Dashboard React Context Provider
 import { SoftUIControllerProvider } from "context";
+import { AuthProvider } from "auth-context/AuthContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <SoftUIControllerProvider>
+      <AuthProvider>
         <App />
+      </AuthProvider>
     </SoftUIControllerProvider>
   </BrowserRouter>
 );

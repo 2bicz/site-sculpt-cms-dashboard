@@ -12,6 +12,7 @@ import EntityTable from "components/EntityTable/EntityTable";
 import { EntityDataForm } from "components/EntityDataForm/EntityDataForm";
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
 import api from "api/api";
+import ColorDisplay from "components/ColorDisplay/ColorDisplay";
 
 export const Sections = () => {
   const { t } = useTranslation();
@@ -26,9 +27,11 @@ export const Sections = () => {
   const [lastOrderValue, setLastOrderValue] = useState(1);
 
   const [order, setOrder] = useState();
+  const [backgroundColor, setBackgroundColor] = useState();
 
   const columns = [
     { name: "order", align: "center" },
+    { name: "background color", align: "center" },
     { name: "column count", align: "center" },
     { name: "edit section", align: "center" },
     { name: "edit section columns", align: "center" },
@@ -39,12 +42,15 @@ export const Sections = () => {
     return data.map((row) => prepareTableRow(row));
   };
 
-  const prepareTableRow = ({ pageSectionId, order, columnCount }) => {
+  const prepareTableRow = ({ pageSectionId, order, columnCount, backgroundColor }) => {
     return {
       order: (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">
           {order}
         </SoftTypography>
+      ),
+      "background color": (
+        <ColorDisplay height={ 30 } width={ 30 } hexCode={ backgroundColor } />
       ),
       "column count": (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">
@@ -61,6 +67,7 @@ export const Sections = () => {
           onClick={() => {
             setEditEntityEnabled(true);
             setEditEntityId(pageSectionId);
+            setBackgroundColor(backgroundColor);
             setOrder(order);
           }}
         >
@@ -100,6 +107,7 @@ export const Sections = () => {
         .post(`/page-section`, {
           pageId: pageId,
           order: order,
+          backgroundColor: backgroundColor,
         })
         .then((response) => {
           if (response.status === 201) {
@@ -118,6 +126,7 @@ export const Sections = () => {
         .post(`/page-section/update/${editEntityId}`, {
           pageId: pageId,
           order: order,
+          backgroundColor: backgroundColor,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -133,7 +142,7 @@ export const Sections = () => {
   const deleteSection = (deleteEntityId) => {
     if (deleteEntityId) {
       api
-        .delete(`/page-section/delete/${editEntityId}`)
+        .delete(`/page-section/delete/${deleteEntityId}`)
         .then((response) => {
           if (response.status === 200) {
             setTableDataChanged((prev) => !prev);
@@ -163,6 +172,13 @@ export const Sections = () => {
     }
   };
 
+  useEffect(() => {
+    if (!editEntityEnabled) {
+      setOrder(undefined);
+      setBackgroundColor(undefined);
+    }
+  }, [editEntityEnabled])
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -179,6 +195,12 @@ export const Sections = () => {
               placeholder: "Kolejność",
               initialValue: order,
               onChange: onOrderChange,
+            },
+            {
+              fieldName: "Kolor tła",
+              type: "color",
+              initialValue: backgroundColor,
+              onChange: (content) => setBackgroundColor(content.target.value),
             },
           ]}
           onFormSubmit={editEntityEnabled ? editSection : addSection}

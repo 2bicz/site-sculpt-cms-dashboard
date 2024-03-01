@@ -23,6 +23,8 @@ export const Pages = () => {
   const [pageTitle, setPageTitle] = useState("");
   const [pagePath, setPagePath] = useState("");
   const [pageOrder, setPageOrder] = useState();
+  const [isHeroEnabled, setIsHeroEnabled] = useState(false);
+  const [heroImagePath, setHeroImagePath] = useState();
   const [tableDataChanged, setTableDataChanged] = useState(false);
 
   const [editPageEnabled, setEditPageEnabled] = useState(false);
@@ -32,6 +34,7 @@ export const Pages = () => {
     { name: "order", align: "center" },
     { name: "title", align: "center" },
     { name: "path", align: "center" },
+    { name: "hero enabled", align: "center" },
     { name: "edit page info", align: "center" },
     { name: "edit page layout", align: "center" },
     { name: "delete page", align: "center" },
@@ -60,7 +63,7 @@ export const Pages = () => {
     return data.map((row) => prepareTableRow(row));
   };
 
-  const prepareTableRow = ({ order, title, path, pageId }) => {
+  const prepareTableRow = ({ order, title, path, pageId, isHeroEnabled, heroImagePath }) => {
     return {
       order: (
         <SoftTypography variant="caption" color="secondary" fontWeight="medium">
@@ -77,6 +80,16 @@ export const Pages = () => {
           {path}
         </SoftTypography>
       ),
+      "hero enabled": (
+        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+          {isHeroEnabled ? "Tak" : "Nie"}
+        </SoftTypography>
+      ),
+      path: (
+        <SoftTypography variant="caption" color="secondary" fontWeight="medium">
+          {path}
+        </SoftTypography>
+      ),
       "edit page info": (
         <SoftButton
           onClick={() => {
@@ -84,6 +97,8 @@ export const Pages = () => {
             setPageOrder(order);
             setPageTitle(title);
             setPagePath(path);
+            setIsHeroEnabled(isHeroEnabled);
+            setHeroImagePath(heroImagePath);
             setEditPageEnabled(true);
           }}
         >
@@ -117,8 +132,9 @@ export const Pages = () => {
         .post(`/page`, {
           title: pageTitle,
           path: pagePath,
-          websiteId: websiteId,
           order: pageOrder,
+          isHeroEnabled: isHeroEnabled,
+          heroImagePath: heroImagePath,
         })
         .then((response) => {
           if (response.status === 201) {
@@ -137,8 +153,9 @@ export const Pages = () => {
         .post(`/page/update/${editPageId}`, {
           title: pageTitle,
           path: pagePath,
-          websiteId: websiteId,
           order: pageOrder,
+          isHeroEnabled: isHeroEnabled,
+          heroImagePath: heroImagePath,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -209,6 +226,25 @@ export const Pages = () => {
               initialValue: pagePath,
               onChange: (content) => setPagePath(content.target.value),
             },
+            {
+              fieldName: "Pokaż banner",
+              type: "dropdown",
+              placeholder: "Pokaż banner",
+              initialValue: isHeroEnabled,
+              onChange: (content) => setIsHeroEnabled(content.target.value),
+              options: [
+                { value: true, label: "Tak" },
+                { value: false, label: "Nie" },
+              ],
+            },
+            isHeroEnabled && {
+              fieldName: "Źródło banneru",
+              type: "text",
+              placeholder: "Źródło banneru",
+              initialValue: heroImagePath,
+              onChange: (content) => setHeroImagePath(content.target.value),
+            },
+
           ]}
           onFormSubmit={editPageEnabled ? editPage : addPage}
           onFormCancel={editPageEnabled && setEditPageEnabled}

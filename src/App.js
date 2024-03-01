@@ -54,11 +54,15 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("jwtToken");
-    if (token) {
+    if (Cookies.get("jwtToken")) {
       setIsLoggedIn(true);
     }
   });
+
+  useEffect(() => {
+    document.title = "Site Sculpt CMS";
+
+  }, [])
 
   // Cache for the rtl
   useMemo(() => {
@@ -129,7 +133,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/dashboard/website" />} />
         </Routes>
       </ThemeProvider>
     </CacheProvider>
@@ -151,7 +155,8 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/dashboard/authentication/sign-in" />} />
+        <Route path="*" element={isLoggedIn ? <Navigate to="/dashboard/website" /> : <Navigate to="/dashboard/authentication/sign-in" />} />
+        {/* <Route path="*" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/dashboard" />} /> */}
       </Routes>
     </ThemeProvider>
   );

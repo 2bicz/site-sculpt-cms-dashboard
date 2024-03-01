@@ -36,47 +36,69 @@ function SignUp() {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState()
+  const [passworResetError, setPassworResetError] = useState(false);
+  const [passwordResetEmailSent, setPasswordResetEmailSent] = useState(false);
 
-  const handleRegister = () => {
-    axios.post(env.baseUrl + "/auth/signup", {
-      username: username,
+  // const handleRegister = () => {
+  //   axios.post(env.baseUrl + "/auth/signup", {
+  //     username: username,
+  //     email: email,
+  //     password: password
+  //   })
+  //   .then((response) => {
+  //     if (response.status === 200) {
+  //       navigate("/dashboard/authentication/sign-in");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+  const handlePasswordReset = () => {
+    axios.post(env.baseUrl + "/auth/password-reset", {
       email: email,
-      password: password
     })
     .then((response) => {
       if (response.status === 200) {
-        navigate("/dashboard/authentication/sign-in");
+        setPasswordResetEmailSent(true);
+        setPassworResetError(false);
       }
     })
     .catch((error) => {
       console.log(error);
+      setPassworResetError(true);
+      setPasswordResetEmailSent(false);
+
     });
   }
 
   return (
     <BasicLayout
       title={t('authentication.welcome')}
-      description={t('authentication.welcome_text')}
+      // description={t('authentication.welcome_text')}
+      description={"Wykorzystaj poniższy formularz by zresetować swoje hasło. Na podany adres e-mail zostanie wysłany link, za pomocą którego będziesz w stanie to zrobić."}
       image={curved6}
     >
       <Card>
         <SoftBox p={3} mb={1} textAlign="center">
           <SoftTypography variant="h5" fontWeight="medium">
-            {t('authentication.register')}
+            {/* {t('authentication.register')} */}
+            Resetuj hasło
           </SoftTypography>
         </SoftBox>
         <SoftBox pt={2} pb={3} px={3}>
           <SoftBox component="form" role="form">
-            <SoftBox mb={2}>
+            {/* <SoftBox mb={2}>
               <SoftInput placeholder={t('authentication.username')} onChange={(content) => setUsername(content.target.value)} />
-            </SoftBox>
+            </SoftBox> */}
             <SoftBox mb={2}>
               <SoftInput type="email" placeholder={t('authentication.email')} onChange={(content) => setEmail(content.target.value)} />
             </SoftBox>
-            <SoftBox mb={2}>
+            {/* <SoftBox mb={2}>
               <SoftInput type="password" placeholder={t('authentication.password')} onChange={(content) => setPassword(content.target.value)} />
-            </SoftBox>
-            <SoftBox display="flex" alignItems="center">
+            </SoftBox> */}
+            {/* <SoftBox display="flex" alignItems="center">
               <Checkbox checked={agreement} onChange={handleSetAgremment} />
               <SoftTypography
                 variant="button"
@@ -95,13 +117,14 @@ function SignUp() {
               >
                 {t('authentication.terms_conditions')}
               </SoftTypography>
-            </SoftBox>
+            </SoftBox> */}
             <SoftBox mt={4} mb={1}>
-              <SoftButton variant="gradient" color="dark" fullWidth onClick={() => handleRegister()}>
-                {t('authentication.sign_up')}
+              <SoftButton variant="gradient" color="dark" fullWidth onClick={() => handlePasswordReset()}>
+                {/* {t('authentication.sign_up')} */}
+                Resetuj hasło
               </SoftButton>
             </SoftBox>
-            <SoftBox mt={3} textAlign="center">
+            {/* <SoftBox mt={3} textAlign="center">
               <SoftTypography variant="button" color="text" fontWeight="regular">
               {t('authentication.already_account')}&nbsp;
                 <SoftTypography
@@ -115,7 +138,7 @@ function SignUp() {
                   {t('authentication.sign_in')}
                 </SoftTypography>
               </SoftTypography>
-            </SoftBox>
+            </SoftBox> */}
           </SoftBox>
         </SoftBox>
       </Card>
